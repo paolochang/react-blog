@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node src",
-    "start:dev": "nodemon --watch src/ src/index.js"
+    "start:dev": "nodemon --exec babel-node src/ src/index.js"
   },
   "dependencies": {
     "dotenv": "^10.0.0",
@@ -16,6 +16,9 @@
     "mongoose": "^6.0.9"
   },
   "devDependencies": {
+    "@babel/core": "^7.15.5",
+    "@babel/node": "^7.15.4",
+    "@babel/preset-env": "^7.15.6",
     "eslint": "^7.32.0",
     "nodemon": "^2.0.13"
   }
