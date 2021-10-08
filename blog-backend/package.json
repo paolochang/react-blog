@@ -20,6 +20,7 @@
     "@babel/node": "^7.15.4",
     "@babel/preset-env": "^7.15.6",
     "eslint": "^7.32.0",
-    "nodemon": "^2.0.13"
+    "nodemon": "^2.0.13",
+    "koa-morgan": "^1.0.1"
   }
 }

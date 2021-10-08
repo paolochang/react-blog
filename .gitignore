@@ -2,3 +2,4 @@ blog-backend/node_modules
 blog-backend/.eslintrc.json
 blog-backend/.prettierrc
 blog-backend/.env
+blog-backend/access.log
