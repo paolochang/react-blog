@@ -29,7 +29,7 @@ const router = new Router();
 // router 적용 전에 bodyParser 적용
 app.use(bodyParser());
 // setup the logger
-app.use(morgan('combined', { stream: accessLogStream }));
+app.use(morgan('common', { stream: accessLogStream }));
 
 // router 설정
 router.use('/api', api.routes());
