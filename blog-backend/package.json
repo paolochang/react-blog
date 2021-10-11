@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "start": "node src",
-    "start:dev": "nodemon --exec babel-node src/ src/index.js"
+    "start:dev": "nodemon --exec babel-node src/ src/index.js",
+    "seed": "node src/db/seed.js"
   },
   "dependencies": {
     "dotenv": "^10.0.0",
