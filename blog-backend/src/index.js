@@ -1,21 +1,44 @@
-const Koa = require('koa');
-const Router = require('koa-router');
-const bodyParser = require('koa-bodyparser');
+require('dotenv').config();
+const fs = require('fs');
+import Koa from 'koa';
+import morgan from 'koa-morgan';
+import Router from 'koa-router';
+import bodyParser from 'koa-bodyparser';
+import mongoose from 'mongoose';
+import api from './api';
+// import createFakeData from './createFakeData';
 
-const api = require('./api');
+const { PORT, MONGO_URI } = process.env;
+
+mongoose
+  .connect(MONGO_URI)
+  .then(() => {
+    console.log(`Connected to MongoDB`);
+    // createFakeData();
+  })
+  .catch((e) => {
+    console.error(e);
+  });
+
+// create a write stream (in append mode)
+const accessLogStream = fs.createWriteStream(__dirname + '/../access.log', {
+  flags: 'a',
+});
 
 const app = new Koa();
 const router = new Router();
 
-// router 설정
-router.use('/api', api.routes());
-
 // router 적용 전에 bodyParser 적용
 app.use(bodyParser());
+// setup the logger
+app.use(morgan('common', { stream: accessLogStream }));
 
+// router 설정
+router.use('/api', api.routes());
 // app instance에 router 적용
 app.use(router.routes()).use(router.allowedMethods());
 
-app.listen(4000, () => {
-  console.log('Listening to port 4000');
+const port = PORT || 4000;
+app.listen(port, () => {
+  console.log('Listening to port %d', port);
 });
