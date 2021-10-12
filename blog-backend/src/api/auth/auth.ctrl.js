@@ -4,8 +4,8 @@ import User from '../../models/user';
 /**
  * POST /api/auth/register
  * {
- *  username: 'velopert'
- *  password: 'mypass123'
+ *  "username": "velopert",
+ *  "password": "mypass123"
  * }
  */
 export const register = async (ctx) => {
@@ -44,8 +44,43 @@ export const register = async (ctx) => {
   }
 };
 
+/**
+ * POST /api/auth/login
+ * {
+ *  "username": "velopert",
+ *  "password": "mypass123"
+ * }
+ */
 export const login = async (ctx) => {
-  // 로그인
+  const { username, password } = ctx.request.body;
+
+  // Error handler for none-existing username and password
+  if (!username || !password) {
+    ctx.status = 401; // Unauthorized
+    return;
+  }
+
+  try {
+    const user = await User.findByUsername(username);
+
+    // Error handler for none-exsting user
+    if (!user) {
+      ctx.status = 401;
+      return;
+    }
+
+    const valid = await user.checkPassword(password);
+
+    // Error handler for validating password
+    if (!valid) {
+      ctx.status = 401;
+      return;
+    }
+
+    ctx.body = user.serialize();
+  } catch (e) {
+    ctx.throw(500, e);
+  }
 };
 
 export const check = async (ctx) => {
