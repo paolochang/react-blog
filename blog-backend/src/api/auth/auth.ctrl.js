@@ -1,4 +1,4 @@
-import Joi, { exist } from 'joi';
+import Joi from 'joi';
 import User from '../../models/user';
 
 /**
