@@ -6,6 +6,7 @@ import Router from 'koa-router';
 import bodyParser from 'koa-bodyparser';
 import mongoose from 'mongoose';
 import api from './api';
+import jwtMiddleware from './lib/jwtMiddleware';
 // import createFakeData from './createFakeData';
 
 const { PORT, MONGO_URI } = process.env;
@@ -28,13 +29,15 @@ const accessLogStream = fs.createWriteStream(__dirname + '/../access.log', {
 const app = new Koa();
 const router = new Router();
 
+// router 설정
+router.use('/api', api.routes());
+
 // router 적용 전에 bodyParser 적용
 app.use(bodyParser());
 // setup the logger
 app.use(morgan('common', { stream: accessLogStream }));
+app.use(jwtMiddleware);
 
-// router 설정
-router.use('/api', api.routes());
 // app instance에 router 적용
 app.use(router.routes()).use(router.allowedMethods());
 
