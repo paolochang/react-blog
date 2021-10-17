@@ -49,8 +49,8 @@ const ButtonWithMarginTop = styled(Button)`
 `;
 
 const textMap = {
-  login: 'Sign in',
-  register: 'Sign up',
+  login: 'Sign In',
+  register: 'Sign Up',
 };
 
 const AuthForm = ({ type, form, onChange, onSubmit }) => {
@@ -90,9 +90,9 @@ const AuthForm = ({ type, form, onChange, onSubmit }) => {
       </form>
       <Footer>
         {type === 'login' ? (
-          <Link to="/register">{text}</Link>
+          <Link to="/register">Sign Up</Link>
         ) : (
-          <Link to="/login">{text}</Link>
+          <Link to="/login">Sign In</Link>
         )}
       </Footer>
     </AuthFormBlock>
