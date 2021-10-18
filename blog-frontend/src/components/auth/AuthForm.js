@@ -49,26 +49,30 @@ const ButtonWithMarginTop = styled(Button)`
 `;
 
 const textMap = {
-  login: 'Sign in',
-  register: 'Sign up',
+  login: 'Sign In',
+  register: 'Sign Up',
 };
 
-const AuthForm = ({ type }) => {
+const AuthForm = ({ type, form, onChange, onSubmit }) => {
   const text = textMap[type];
   return (
     <AuthFormBlock>
       <h3>{text}</h3>
-      <form>
+      <form onSubmit={onSubmit}>
         <StyledInput
           autoComplete="username"
           name="username"
           placeholder="Username"
+          onChange={onChange}
+          value={form.username}
         />
         <StyledInput
           autoComplete="new-password"
           name="password"
           placeholder="Password"
           type="password"
+          onChange={onChange}
+          value={form.password}
         />
         {type === 'register' && (
           <StyledInput
@@ -76,6 +80,8 @@ const AuthForm = ({ type }) => {
             name="passwordConfirm"
             placeholder="Confirm password"
             type="password"
+            onChange={onChange}
+            value={form.passwordConfirm}
           />
         )}
         <ButtonWithMarginTop cyan fullWidth>
@@ -84,9 +90,9 @@ const AuthForm = ({ type }) => {
       </form>
       <Footer>
         {type === 'login' ? (
-          <Link to="/register">{text}</Link>
+          <Link to="/register">Sign Up</Link>
         ) : (
-          <Link to="/login">{text}</Link>
+          <Link to="/login">Sign In</Link>
         )}
       </Footer>
     </AuthFormBlock>
