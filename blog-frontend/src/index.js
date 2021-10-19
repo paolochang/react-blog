@@ -7,9 +7,13 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import rootReducer from './modules';
+import createSagaMiddleware from 'redux-saga';
+import rootReducer, { rootSaga } from './modules';
 
-const store = createStore(rootReducer, composeWithDevTools());
+const sagaMiddleware = createSagaMiddleware();
+const store = createStore(rootReducer, composeWithDevTools(sagaMiddleware));
+
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   <Provider store={store}>
