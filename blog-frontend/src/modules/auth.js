@@ -5,7 +5,7 @@ import * as authAPI from '../lib/api/auth';
 import createRequestSaga from '../lib/createRequestSaga';
 
 const CHANGE_FIELD = 'auth/CHANGE_FIELD';
-const INITIALIZE_FORM = 'aut/INITIALIZE_FORM';
+const INITIALIZE_FORM = 'auth/INITIALIZE_FORM';
 
 const REGISTER = 'auth/REGISTER';
 const REGISTER_SUCCESS = 'auth/REGISTER_SUCCESS';
