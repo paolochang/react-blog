@@ -8,6 +8,7 @@ import { useHistory } from 'react-router';
 const RegisterForm = () => {
   const history = useHistory();
   const [error, setError] = useState(null);
+
   const dispatch = useDispatch();
   const { form, auth, authError, user } = useSelector(({ auth, user }) => ({
     form: auth.register,
@@ -22,7 +23,6 @@ const RegisterForm = () => {
 
   useEffect(() => {
     if (authError) {
-      console.log(`${authError}`);
       if (authError.response.status === 409) {
         setError('Username already exists');
         return;
@@ -31,14 +31,14 @@ const RegisterForm = () => {
       return;
     }
     if (auth) {
-      console.log(`Registration success: ${JSON.stringify(auth)}`);
+      // console.log(`Registration success: ${JSON.stringify(auth)}`);
       dispatch(check());
     }
   }, [authError, auth, dispatch]);
 
   useEffect(() => {
     if (user) {
-      console.log(`check API success: ${JSON.stringify(user)}`);
+      // console.log(`check API success: ${JSON.stringify(user)}`);
       history.push('/');
     }
   }, [history, user]);
@@ -57,7 +57,6 @@ const RegisterForm = () => {
       return;
     }
     if (password !== passwordConfirm) {
-      // TODO: error handler
       setError('Passwords do not match');
       changeField({ form: 'register', key: 'password', value: '' });
       changeField({ form: 'register', key: 'passwordConfirm', value: '' });

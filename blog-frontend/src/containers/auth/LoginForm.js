@@ -8,6 +8,7 @@ import { check } from '../../modules/user';
 const LoginForm = () => {
   const history = useHistory();
   const [error, setError] = useState(null);
+
   const dispatch = useDispatch();
   const { form, auth, authError, user } = useSelector(({ auth, user }) => ({
     form: auth.login,
@@ -22,12 +23,12 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (authError) {
-      console.log(authError);
+      // console.log(authError);
       setError('Failed to login');
       return;
     }
     if (auth) {
-      console.log('Login success');
+      // console.log('Login success');
       dispatch(check());
     }
   }, [authError, auth, dispatch]);
