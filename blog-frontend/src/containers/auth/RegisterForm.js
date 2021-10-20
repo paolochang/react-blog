@@ -3,9 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeField, initializeForm, register } from '../../modules/auth';
 import AuthForm from '../../components/auth/AuthForm';
 import { check } from '../../modules/user';
-import { withRouter } from 'react-router';
+import { useHistory } from 'react-router';
 
-const RegisterForm = ({ history }) => {
+const RegisterForm = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const { form, auth, authError, user } = useSelector(({ auth, user }) => ({
     form: auth.register,
@@ -13,21 +14,6 @@ const RegisterForm = ({ history }) => {
     authError: auth.authError,
     user: user.user,
   }));
-
-  const onChange = (e) => {
-    const { value, name } = e.target;
-    dispatch(changeField({ form: 'register', key: name, value }));
-  };
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    const { username, password, passwordConfirm } = form;
-    if (password !== passwordConfirm) {
-      // TODO: error handler
-      return;
-    }
-    dispatch(register({ username, password }));
-  };
 
   useEffect(() => {
     dispatch(initializeForm('register'));
@@ -51,6 +37,21 @@ const RegisterForm = ({ history }) => {
     }
   }, [history, user]);
 
+  const onChange = (e) => {
+    const { value, name } = e.target;
+    dispatch(changeField({ form: 'register', key: name, value }));
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const { username, password, passwordConfirm } = form;
+    if (password !== passwordConfirm) {
+      // TODO: error handler
+      return;
+    }
+    dispatch(register({ username, password }));
+  };
+
   return (
     <AuthForm
       type="register"
@@ -61,4 +62,4 @@ const RegisterForm = ({ history }) => {
   );
 };
 
-export default withRouter(RegisterForm);
+export default RegisterForm;
