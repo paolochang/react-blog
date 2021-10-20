@@ -1,11 +1,11 @@
 import React from 'react';
-import Button from '../components/common/Button';
+import Header from '../components/common/Header';
 
 const PostListPage = () => {
   return (
     <div>
-      Post List
-      <Button>Button</Button>
+      <Header />
+      <div>Hello, react-blog!</div>
     </div>
   );
 };
