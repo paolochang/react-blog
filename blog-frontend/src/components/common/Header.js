@@ -42,7 +42,7 @@ const Spacer = styled.div`
   height: 4rem;
 `;
 
-const Header = ({ user }) => {
+const Header = ({ user, onLogout }) => {
   return (
     <React.Fragment>
       <HeaderBlock>
@@ -53,7 +53,7 @@ const Header = ({ user }) => {
           {user ? (
             <div className="right">
               <UserInfo>{user.username}</UserInfo>
-              <Button>Sign out</Button>
+              <Button onClick={onLogout}>Sign out</Button>
             </div>
           ) : (
             <div className="right">
