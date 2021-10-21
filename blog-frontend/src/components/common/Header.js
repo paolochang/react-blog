@@ -30,6 +30,11 @@ const Wrapper = styled(Responsive)`
   }
 `;
 
+const UserInfo = styled.div`
+  font-weight: 800;
+  margin-right: 1rem;
+`;
+
 /**
  * 헤더가 fixed로 되어 있기 때문에 페이지의 컨텐츠가 4rem 아래 나타나도록 해주는 컴포넌트
  */
@@ -37,19 +42,24 @@ const Spacer = styled.div`
   height: 4rem;
 `;
 
-const Header = () => {
+const Header = ({ user }) => {
   return (
     <React.Fragment>
       <HeaderBlock>
         <Wrapper>
-          <div className="logo">
-            <Link to="/" className="logo">
-              REACTERS
-            </Link>
-          </div>
-          <div className="right">
-            <Button to="/login">Login</Button>
-          </div>
+          <Link to="/" className="logo">
+            REACTERS
+          </Link>
+          {user ? (
+            <div className="right">
+              <UserInfo>{user.username}</UserInfo>
+              <Button>Sign out</Button>
+            </div>
+          ) : (
+            <div className="right">
+              <Button to="/login">Sign in</Button>
+            </div>
+          )}
         </Wrapper>
       </HeaderBlock>
       <Spacer />
