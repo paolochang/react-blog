@@ -32,7 +32,7 @@ const QuillWrapper = styled.div`
   }
 `;
 
-const Editor = () => {
+const Editor = ({ title, body, onChangeField }) => {
   const quillElement = useRef(null);
   const quillInstance = useRef(null);
 
@@ -51,11 +51,28 @@ const Editor = () => {
         ],
       },
     });
-  }, []);
+
+    // quill에 text-change 이벤트 핸들러 등록
+    // Ref: https://quilljs.com/docs/api/#events
+    const quill = quillInstance.current;
+    quill.on('text-change', (delta, oldDelta, source) => {
+      if (source === 'user') {
+        onChangeField({ key: 'body', value: quill.root.innerHTML });
+      }
+    });
+  }, [onChangeField]);
+
+  const onChangeTitle = (e) => {
+    onChangeField({ key: 'title', value: e.target.value });
+  };
 
   return (
     <EditorBlock>
-      <TitleInput placeholder="Add title..." />
+      <TitleInput
+        placeholder="Add title..."
+        onChange={onChangeTitle}
+        value={title}
+      />
       <QuillWrapper>
         <div ref={quillElement} />
       </QuillWrapper>
