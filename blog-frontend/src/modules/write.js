@@ -24,6 +24,7 @@ export const writePost = createAction(WRITE_POST, ({ title, body, tags }) => ({
 
 // Create saga
 const writePostSaga = createRequestSaga(WRITE_POST, postsAPI.writePost);
+
 export function* writeSaga() {
   yield takeLatest(WRITE_POST, writePostSaga);
 }
