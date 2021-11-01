@@ -25,17 +25,32 @@ const PostContent = styled.div`
   color: ${palette.gray[8]};
 `;
 
-const PostViewer = () => {
+const PostViewer = ({ post, error, loading }) => {
+  if (error) {
+    if (error.response && error.response.status === 404) {
+      return <PostViewerBlock>Post is not found.</PostViewerBlock>;
+    }
+    return <PostViewerBlock>Error occurs!</PostViewerBlock>;
+  }
+
+  if (loading || !post) {
+    return null;
+  }
+
+  const { title, body, user, publishedDate, tags } = post;
+
   return (
     <PostViewerBlock>
       <PostHead>
-        <h1>Title</h1>
-        <SubInfo username="username" publishedDate={new Date()} />
-        <Tags tags={['tag1', 'tag2', 'tag3']} />
+        <h1>{title}</h1>
+        <SubInfo
+          username={user.username}
+          publishedDate={new Date(publishedDate).toLocaleDateString()}
+          hasMarginTop
+        />
+        <Tags tags={tags} />
       </PostHead>
-      <PostContent
-        dangerouslySetInnerHTML={{ __html: '<p>HTML: <b>Content</b></p>' }}
-      />
+      <PostContent dangerouslySetInnerHTML={{ __html: body }} />
     </PostViewerBlock>
   );
 };
