@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { listPosts } from '../../modules/posts';
 import PostList from '../../components/posts/PostList';
 
-const PostListContainer = ({ location }) => {
+const PostListContainer = ({ location, match }) => {
   const dispatch = useDispatch();
   const { posts, error, loading, user } = useSelector(
     ({ posts, loading, user }) => ({
@@ -17,11 +17,12 @@ const PostListContainer = ({ location }) => {
   );
 
   useEffect(() => {
-    const { tag, username, page } = qs.parse(location.search, {
+    const { username } = match.params;
+    const { tag, page } = qs.parse(location.search, {
       ignoreQueryPrefix: true,
     });
     dispatch(listPosts({ tag, username, page }));
-  }, [dispatch, location.search]);
+  }, [dispatch, match.params, location.search]);
 
   return (
     <PostList
