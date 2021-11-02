@@ -59,7 +59,7 @@ const PostItem = ({ post }) => {
 
 const PostList = ({ posts, loading, error, showWriteButton }) => {
   if (error) {
-    return <PostListBlock>Error occurs!</PostListBlock>;
+    return <PostListBlock>Posts cannot be loaded!</PostListBlock>;
   }
 
   return (
