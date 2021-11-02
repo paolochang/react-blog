@@ -9,9 +9,17 @@ export default function createRequestSaga(type, request) {
     yield put(startLoading(type)); // start loading
     try {
       const response = yield call(request, action.payload);
-      yield put({ type: SUCCESS, payload: response.data });
+      yield put({
+        type: SUCCESS,
+        payload: response.data,
+        meta: response,
+      });
     } catch (e) {
-      yield put({ type: FAILURE, payload: e, error: true });
+      yield put({
+        type: FAILURE,
+        payload: e,
+        error: true,
+      });
     }
     yield put(finishLoading(type)); // finish loading
   };
